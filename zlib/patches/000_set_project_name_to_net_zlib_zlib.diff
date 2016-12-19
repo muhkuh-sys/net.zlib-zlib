@@ -1,0 +1,12 @@
+diff -uNr old/CMakeLists.txt new/CMakeLists.txt
+--- old/CMakeLists.txt	2016-12-19 16:31:58.587332698 +0100
++++ new/CMakeLists.txt	2016-12-19 16:37:36.187346880 +0100
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 2.4.4)
+ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+ 
+-project(zlib C)
++project(net.zlib-zlib C)
+ 
+ set(VERSION "1.2.8")
+ 

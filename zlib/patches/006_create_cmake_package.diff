@@ -1,0 +1,52 @@
+diff -uNr old/CMakeLists.txt new/CMakeLists.txt
+--- old/CMakeLists.txt	2016-12-19 16:18:55.915299820 +0100
++++ new/CMakeLists.txt	2016-12-19 16:20:52.299304709 +0100
+@@ -212,6 +212,7 @@
+ 
+ if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
+     install(TARGETS zlibstatic
++        EXPORT EXPORT_package
+         RUNTIME DESTINATION "${INSTALL_BIN_DIR}"
+         ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
+         LIBRARY DESTINATION "${INSTALL_LIB_DIR}" )
+@@ -226,6 +227,40 @@
+ #    install(FILES ${ZLIB_PC} DESTINATION "${INSTALL_PKGCONFIG_DIR}")
+ #endif()
+ 
++
++#----------------------------------------------------------------------------
++#
++# Build the CMAKE package.
++#
++INCLUDE(CMakePackageConfigHelpers)
++
++SET(INCLUDE_INSTALL_DIR dev/include/)
++CONFIGURE_PACKAGE_CONFIG_FILE(cmake/config.cmake.in
++                              "${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}-config.cmake"
++                              INSTALL_DESTINATION dev/cmake
++                              PATH_VARS INCLUDE_INSTALL_DIR
++)
++
++WRITE_BASIC_PACKAGE_VERSION_FILE("${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}-version.cmake"
++        COMPATIBILITY ExactVersion
++)
++
++EXPORT(EXPORT EXPORT_package
++       FILE "${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}-targets.cmake"
++       NAMESPACE ${PROJECT_NAME}::
++)
++
++INSTALL(EXPORT EXPORT_package
++        FILE ${PROJECT_NAME}-targets.cmake
++        NAMESPACE ${PROJECT_NAME}::
++        DESTINATION dev/cmake
++)
++INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}-config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}-version.cmake"
++        DESTINATION dev/cmake
++        COMPONENT Devel
++)
++
++
+ #============================================================================
+ # Example binaries
+ #============================================================================

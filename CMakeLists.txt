@@ -1,16 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 
-PROJECT("luazip")
+PROJECT("net.zlib-zlib")
 
 
 # Enable tests (see here for details: http://www.vtk.org/Wiki/CMake/Testing_With_CTest)
 ENABLE_TESTING()
-
-# Include the location of the dependencies.
-INCLUDE(ivy/ant_paths.cmake)
-
-# Select the LUA version.
-INCLUDE(cmake/muhkuh_lua.cmake)
 
 
 #----------------------------------------------------------------------------
@@ -49,4 +43,3 @@ ADD_SUBDIRECTORY(zlib)
 
 
 #----------------------------------------------------------------------------
-
