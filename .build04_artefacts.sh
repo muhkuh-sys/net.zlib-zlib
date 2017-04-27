@@ -46,4 +46,6 @@ pushd build/net.zlib-zlib
 cmake -DCMAKE_INSTALL_PREFIX="" ../../zlib/installer
 make
 make package
+python2.7 ../../cmake/tools/generate_hash.py targets/jonchki/repository/net/zlib/zlib/*/zlib-*.xml
+python2.7 ../../cmake/tools/generate_hash.py targets/jonchki/repository/net/zlib/zlib/*/zlib-*.tar.xz
 popd
