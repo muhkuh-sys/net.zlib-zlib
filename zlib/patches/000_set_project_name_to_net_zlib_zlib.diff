@@ -8,5 +8,5 @@ diff -uNr old/CMakeLists.txt new/CMakeLists.txt
 -project(zlib C)
 +project(net.zlib-zlib C)
  
- set(VERSION "1.2.8")
+ set(VERSION "1.2.11")
  
