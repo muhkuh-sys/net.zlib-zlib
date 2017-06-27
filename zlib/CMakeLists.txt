@@ -4,8 +4,8 @@ PROJECT("net.zlib-zlib")
 
 INCLUDE(ExternalProject)
 
-SET(VERSION_EXTERNAL "1.2.8")
-SET(VERSION_PACKAGE  "2")
+SET(VERSION_EXTERNAL "1.2.11")
+SET(VERSION_PACKAGE  "1")
 SET(VERSION_ALL      "${VERSION_EXTERNAL}.${VERSION_PACKAGE}")
 
 #----------------------------------------------------------------------------
