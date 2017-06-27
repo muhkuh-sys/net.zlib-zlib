@@ -27,7 +27,7 @@ LIST(APPEND PRJ_CMAKE_ARGS "-DPROJECT_VERSION=${VERSION_ALL}")
 ExternalProject_Add(TARGET_zlib
                     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/zlib-${VERSION_EXTERNAL}
                     URL ${CMAKE_CURRENT_SOURCE_DIR}/zlib-${VERSION_EXTERNAL}.tar.gz
-                    URL_HASH SHA1=a4d316c404ff54ca545ea71a27af7dbc29817088
+                    URL_HASH SHA1=e6d119755acdf9104d7ba236b1242696940ed6dd
                     PATCH_COMMAND "${PYTHON_EXECUTABLE}" ${CMAKE_HOME_DIRECTORY}/cmake/tools/apply_patches.py --working-folder ${CMAKE_CURRENT_BINARY_DIR}/zlib-${VERSION_EXTERNAL}/src/TARGET_zlib --patch-folder ${CMAKE_CURRENT_SOURCE_DIR}/patches --copy-folder ${CMAKE_CURRENT_SOURCE_DIR}/copy_over --strip 1
                     CMAKE_ARGS ${PRJ_CMAKE_ARGS}
                     INSTALL_COMMAND make install DESTDIR=${CMAKE_CURRENT_BINARY_DIR}/install
