@@ -10,10 +10,10 @@ SET(INSTALL_UBUNTU_1404_x86    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_14
 SET(INSTALL_UBUNTU_1404_x86_64 ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1404_x86_64)
 SET(INSTALL_UBUNTU_1604_x86    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1604_x86)
 SET(INSTALL_UBUNTU_1604_x86_64 ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1604_x86_64)
-SET(INSTALL_UBUNTU_1610_x86    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1610_x86)
-SET(INSTALL_UBUNTU_1610_x86_64 ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1610_x86_64)
 SET(INSTALL_UBUNTU_1704_x86    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1704_x86)
 SET(INSTALL_UBUNTU_1704_x86_64 ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1704_x86_64)
+SET(INSTALL_UBUNTU_1710_x86    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1710_x86)
+SET(INSTALL_UBUNTU_1710_x86_64 ${CMAKE_CURRENT_SOURCE_DIR}/../../build/ubuntu_1710_x86_64)
 
 # Get the version from one of the packages.
 SET(net.zlib-zlib_DIR ${INSTALL_WINDOWS_x86}/dev/cmake)
@@ -144,44 +144,6 @@ INSTALL(DIRECTORY ${INSTALL_UBUNTU_1604_x86_64}/dev/cmake
 
 #-----------------------------------------------------------------------------
 #
-# Install the Ubuntu_1610_x86 files.
-#
-INSTALL(FILES ${INSTALL_UBUNTU_1610_x86}/dev/lib/libz.a
-        DESTINATION ubuntu_1610_x86/dev/lib
-)
-
-INSTALL(DIRECTORY ${INSTALL_UBUNTU_1610_x86}/dev/include
-        DESTINATION ubuntu_1610_x86/dev
-        FILES_MATCHING PATTERN "*.h"
-)
-
-INSTALL(DIRECTORY ${INSTALL_UBUNTU_1610_x86}/dev/cmake
-        DESTINATION ubuntu_1610_x86/dev
-        FILES_MATCHING PATTERN "*.cmake"
-)
-
-
-#-----------------------------------------------------------------------------
-#
-# Install the Ubuntu_1610_x86_64 files.
-#
-INSTALL(FILES ${INSTALL_UBUNTU_1610_x86_64}/dev/lib/libz.a
-        DESTINATION ubuntu_1610_x86_64/dev/lib
-)
-
-INSTALL(DIRECTORY ${INSTALL_UBUNTU_1610_x86_64}/dev/include
-        DESTINATION ubuntu_1610_x86_64/dev
-        FILES_MATCHING PATTERN "*.h"
-)
-
-INSTALL(DIRECTORY ${INSTALL_UBUNTU_1610_x86_64}/dev/cmake
-        DESTINATION ubuntu_1610_x86_64/dev
-        FILES_MATCHING PATTERN "*.cmake"
-)
-
-
-#-----------------------------------------------------------------------------
-#
 # Install the Ubuntu_1704_x86 files.
 #
 INSTALL(FILES ${INSTALL_UBUNTU_1704_x86}/dev/lib/libz.a
@@ -214,6 +176,44 @@ INSTALL(DIRECTORY ${INSTALL_UBUNTU_1704_x86_64}/dev/include
 
 INSTALL(DIRECTORY ${INSTALL_UBUNTU_1704_x86_64}/dev/cmake
         DESTINATION ubuntu_1704_x86_64/dev
+        FILES_MATCHING PATTERN "*.cmake"
+)
+
+
+#-----------------------------------------------------------------------------
+#
+# Install the Ubuntu_1710_x86 files.
+#
+INSTALL(FILES ${INSTALL_UBUNTU_1710_x86}/dev/lib/libz.a
+        DESTINATION ubuntu_1710_x86/dev/lib
+)
+
+INSTALL(DIRECTORY ${INSTALL_UBUNTU_1710_x86}/dev/include
+        DESTINATION ubuntu_1710_x86/dev
+        FILES_MATCHING PATTERN "*.h"
+)
+
+INSTALL(DIRECTORY ${INSTALL_UBUNTU_1710_x86}/dev/cmake
+        DESTINATION ubuntu_1710_x86/dev
+        FILES_MATCHING PATTERN "*.cmake"
+)
+
+
+#-----------------------------------------------------------------------------
+#
+# Install the Ubuntu_1710_x86_64 files.
+#
+INSTALL(FILES ${INSTALL_UBUNTU_1710_x86_64}/dev/lib/libz.a
+        DESTINATION ubuntu_1710_x86_64/dev/lib
+)
+
+INSTALL(DIRECTORY ${INSTALL_UBUNTU_1710_x86_64}/dev/include
+        DESTINATION ubuntu_1710_x86_64/dev
+        FILES_MATCHING PATTERN "*.h"
+)
+
+INSTALL(DIRECTORY ${INSTALL_UBUNTU_1710_x86_64}/dev/cmake
+        DESTINATION ubuntu_1710_x86_64/dev
         FILES_MATCHING PATTERN "*.cmake"
 )
 
