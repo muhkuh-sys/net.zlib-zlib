@@ -1,0 +1,44 @@
+#! /bin/bash
+set -e
+
+TARGET=$1
+
+# Get the path to this script. Found here: https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+PRJ_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+if [ "$TARGET" == "linux" ]; then
+	rm -rf build/linux
+	mkdir -p build/linux
+	pushd build/linux
+	cmake -DCMAKE_INSTALL_PREFIX="" ${PRJ_DIR}
+	make pack
+	popd
+
+elif [ "$TARGET" == "windows32" ]; then
+	rm -rf build/windows32
+	mkdir -p build/windows32
+	pushd build/windows32
+	MINGW_PATH=/usr/mingw-w64-i686/bin:${PATH}
+	PATH=${MINGW_PATH} cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="windows" -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH="x86" -DImageMagick_convert_EXECUTABLE=/usr/bin/convert -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=i686-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=i686-w64-mingw32-g++ -DCMAKE_RC_COMPILER=i686-w64-mingw32-windres ${PRJ_DIR}
+	PATH=${MINGW_PATH} make pack
+	popd
+
+elif [ "$TARGET" == "windows64" ]; then
+	rm -rf build/windows64
+	mkdir -p build/windows64
+	pushd build/windows64
+	MINGW_PATH=/usr/mingw-w64-x86_64/bin:${PATH}
+	PATH=${MINGW_PATH} cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="windows" -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH="x64_86" -DImageMagick_convert_EXECUTABLE=/usr/bin/convert -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64 -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ -DCMAKE_RC_COMPILER=x86_64-w64-mingw32-windres ${PRJ_DIR}
+	PATH=${MINGW_PATH} make pack
+	popd
+
+else
+	echo "Unknown build target: ${TARGET}"
+	exit -1
+fi
