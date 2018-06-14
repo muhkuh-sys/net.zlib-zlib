@@ -5,7 +5,7 @@ PROJECT("net.zlib-zlib")
 INCLUDE(ExternalProject)
 
 SET(VERSION_EXTERNAL "1.2.11")
-SET(VERSION_PACKAGE  "2")
+SET(VERSION_PACKAGE  "3")
 SET(PROJECT_VERSION  "${VERSION_EXTERNAL}.${VERSION_PACKAGE}")
 
 # Enable tests (see here for details: http://www.vtk.org/Wiki/CMake/Testing_With_CTest)
