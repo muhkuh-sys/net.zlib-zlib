@@ -38,6 +38,14 @@ elif [ "$TARGET" == "windows64" ]; then
 	PATH=${MINGW_PATH} make pack
 	popd
 
+elif [ "$TARGET" == "raspberry" ]; then
+	rm -rf build/raspberry
+	mkdir -p build/raspberry
+	pushd build/raspberry
+	cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="ubuntu" -DJONCHKI_PLATFORM_DIST_VERSION="18.04" -DJONCHKI_PLATFORM_CPU_ARCH="arm64" -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ ${PRJ_DIR}
+	make pack
+	popd
+
 else
 	echo "Unknown build target: ${TARGET}"
 	exit -1
