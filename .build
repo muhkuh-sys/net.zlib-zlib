@@ -15,38 +15,41 @@ PRJ_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 if [ "$TARGET" == "linux" ]; then
 	rm -rf build/linux
 	mkdir -p build/linux
-	pushd build/linux
-	cmake -DCMAKE_INSTALL_PREFIX="" ${PRJ_DIR}
-	make pack
-	popd
+	TOOLS_PATH=${PATH}
 
 elif [ "$TARGET" == "windows32" ]; then
 	rm -rf build/windows32
 	mkdir -p build/windows32
-	pushd build/windows32
-	MINGW_PATH=/usr/mingw-w64-i686/bin:${PATH}
-	PATH=${MINGW_PATH} cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="windows" -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH="x86" -DImageMagick_convert_EXECUTABLE=/usr/bin/convert -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=i686-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=i686-w64-mingw32-g++ -DCMAKE_RC_COMPILER=i686-w64-mingw32-windres ${PRJ_DIR}
-	PATH=${MINGW_PATH} make pack
-	popd
+	CMAKE_CROSS_COMPILER="-DCMAKE_TOOLCHAIN_FILE=${PRJ_DIR}/cmake/toolchainfiles/toolchain_windows_32.cmake"
+	CMAKE_PLATFORM="-DJONCHKI_PLATFORM_DIST_ID=windows -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH=x86"
+	TOOLS_PATH=/usr/mingw-w64-i686/bin:${PATH}
+#-DImageMagick_convert_EXECUTABLE=/usr/bin/convert
 
 elif [ "$TARGET" == "windows64" ]; then
 	rm -rf build/windows64
 	mkdir -p build/windows64
-	pushd build/windows64
-	MINGW_PATH=/usr/mingw-w64-x86_64/bin:${PATH}
-	PATH=${MINGW_PATH} cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="windows" -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH="x86_64" -DImageMagick_convert_EXECUTABLE=/usr/bin/convert -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64 -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ -DCMAKE_RC_COMPILER=x86_64-w64-mingw32-windres ${PRJ_DIR}
-	PATH=${MINGW_PATH} make pack
-	popd
+	CMAKE_CROSS_COMPILER="-DCMAKE_TOOLCHAIN_FILE=${PRJ_DIR}/cmake/toolchainfiles/toolchain_windows_64.cmake"
+	CMAKE_PLATFORM="-DJONCHKI_PLATFORM_DIST_ID=windows -DJONCHKI_PLATFORM_DIST_VERSION="" -DJONCHKI_PLATFORM_CPU_ARCH=x86_64"
+	TOOLS_PATH=/usr/mingw-w64-x86_64/bin:${PATH}
+#-DImageMagick_convert_EXECUTABLE=/usr/bin/convert
 
 elif [ "$TARGET" == "raspberry" ]; then
 	rm -rf build/raspberry
 	mkdir -p build/raspberry
-	pushd build/raspberry
-	cmake -DCMAKE_INSTALL_PREFIX="" -DJONCHKI_PLATFORM_DIST_ID="ubuntu" -DJONCHKI_PLATFORM_DIST_VERSION="18.04" -DJONCHKI_PLATFORM_CPU_ARCH="arm64" -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ ${PRJ_DIR}
-	make pack
-	popd
+	CMAKE_CROSS_COMPILER="-DCMAKE_TOOLCHAIN_FILE=${PRJ_DIR}/cmake/toolchainfiles/toolchain_ubuntu_arm64.cmake"
+	CMAKE_PLATFORM="DJONCHKI_PLATFORM_DIST_ID=ubuntu -DJONCHKI_PLATFORM_DIST_VERSION=18.04 -DJONCHKI_PLATFORM_CPU_ARCH=arm64"
+	TOOLS_PATH=${PATH}
 
 else
 	echo "Unknown build target: ${TARGET}"
 	exit -1
 fi
+
+
+BUILD_DIR=${PRJ_DIR}/build/${TARGET}
+pushd ${BUILD_DIR}
+PATH=${TOOLS_PATH} cmake -DCMAKE_INSTALL_PREFIX="" ${CMAKE_CROSS_COMPILER} ${CMAKE_PLATFORM} ${PRJ_DIR}
+PATH=${TOOLS_PATH} make pack
+popd
+
+
