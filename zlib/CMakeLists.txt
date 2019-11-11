@@ -45,7 +45,7 @@ ExternalProject_Add(TARGET_zlib
 # Build a package for the selected platform.
 #
 
-SET(CPACK_OUTPUT_FILE_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/targets/jonchki/repository/net/zlib/zlib/${PROJECT_VERSION})
+SET(CPACK_OUTPUT_FILE_PREFIX ${CMAKE_BINARY_DIR}/../repository/net/zlib/zlib/${PROJECT_VERSION})
 SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY FALSE)
 SET(CPACK_PACKAGE_FILE_NAME "zlib-${PROJECT_VERSION}-${JONCHKI_PLATFORM}")
 
