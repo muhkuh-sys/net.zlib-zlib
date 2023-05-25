@@ -1,6 +1,6 @@
-diff -uNr zlib-1.2.12/CMakeLists.txt zlib-1.2.12_patched/CMakeLists.txt
---- zlib-1.2.12/CMakeLists.txt	2022-03-28 01:39:42.000000000 +0200
-+++ zlib-1.2.12_patched/CMakeLists.txt	2022-04-01 08:59:36.995566481 +0200
+diff -uNr zlib-1.2.13/CMakeLists.txt zlib-1.2.13_patched/CMakeLists.txt
+--- zlib-1.2.13/CMakeLists.txt	2022-10-13 07:06:55.000000000 +0200
++++ zlib-1.2.13_patched/CMakeLists.txt	2023-05-25 11:22:24.300416739 +0200
 @@ -1,7 +1,7 @@
  cmake_minimum_required(VERSION 2.4.4)
  set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
@@ -8,5 +8,5 @@ diff -uNr zlib-1.2.12/CMakeLists.txt zlib-1.2.12_patched/CMakeLists.txt
 -project(zlib C)
 +project(net.zlib-zlib C)
  
- set(VERSION "1.2.12")
+ set(VERSION "1.2.13")
  

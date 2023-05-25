@@ -1,7 +1,7 @@
-diff -uNr zlib-1.2.8_org/CMakeLists.txt zlib-1.2.8_patched/CMakeLists.txt
---- zlib-1.2.8_org/CMakeLists.txt	2017-02-12 16:31:51.000000000 +0100
-+++ zlib-1.2.8_patched/CMakeLists.txt	2017-02-12 16:34:21.113570565 +0100
-@@ -210,6 +210,11 @@
+diff -uNr zlib-1.2.13/CMakeLists.txt zlib-1.2.13_patched/CMakeLists.txt
+--- zlib-1.2.13/CMakeLists.txt	2023-05-25 11:31:13.045102848 +0200
++++ zlib-1.2.13_patched/CMakeLists.txt	2023-05-25 11:31:20.725112008 +0200
+@@ -174,6 +174,11 @@
  #    set_target_properties(zlib PROPERTIES SUFFIX "1.dll")
  #endif()
  

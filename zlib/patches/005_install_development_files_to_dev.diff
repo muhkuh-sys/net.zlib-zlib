@@ -1,8 +1,8 @@
-diff -uNr old/CMakeLists.txt new/CMakeLists.txt
---- old/CMakeLists.txt	2016-12-19 16:31:58.587332698 +0100
-+++ new/CMakeLists.txt	2016-12-19 16:32:24.895333803 +0100
-@@ -9,8 +9,8 @@
- option(AMD64 "Enable building amd64 assembly implementation")
+diff -uNr zlib-1.2.13/CMakeLists.txt zlib-1.2.13_patched/CMakeLists.txt
+--- zlib-1.2.13/CMakeLists.txt	2023-05-25 11:28:38.408919456 +0200
++++ zlib-1.2.13_patched/CMakeLists.txt	2023-05-25 11:28:48.916933298 +0200
+@@ -6,8 +6,8 @@
+ set(VERSION "1.2.13")
  
  set(INSTALL_BIN_DIR "${CMAKE_INSTALL_PREFIX}/bin" CACHE PATH "Installation directory for executables")
 -set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")

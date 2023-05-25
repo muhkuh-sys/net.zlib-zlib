@@ -1,7 +1,7 @@
-diff -uNr old/CMakeLists.txt new/CMakeLists.txt
---- old/CMakeLists.txt	2016-12-19 16:31:58.587332698 +0100
-+++ new/CMakeLists.txt	2016-12-19 16:50:52.443380330 +0100
-@@ -199,16 +199,16 @@
+diff -uNr zlib-1.2.13/CMakeLists.txt zlib-1.2.13_patched/CMakeLists.txt
+--- zlib-1.2.13/CMakeLists.txt	2023-05-25 11:30:23.457043995 +0200
++++ zlib-1.2.13_patched/CMakeLists.txt	2023-05-25 11:30:36.381059283 +0200
+@@ -163,16 +163,16 @@
      set_target_properties(zlib PROPERTIES VERSION ${ZLIB_FULL_VERSION})
  endif()
  
