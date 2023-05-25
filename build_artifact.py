@@ -30,42 +30,6 @@ strCfg_workingFolder = os.path.join(
     tPlatform['platform_id']
 )
 
-# Where is the jonchkihere tool?
-strCfg_jonchkiHerePath = os.path.join(
-    strCfg_projectFolder,
-    'jonchki'
-)
-# This is the Jonchki version to use.
-strCfg_jonchkiVersion = '0.0.6.1'
-# Look in this folder for Jonchki archives before downloading them.
-strCfg_jonchkiLocalArchives = os.path.join(
-    strCfg_projectFolder,
-    'jonchki',
-    'local_archives'
-)
-# The target folder for the jonchki installation. A subfolder named
-# "jonchki-VERSION" will be created there. "VERSION" will be replaced with
-# the version number from strCfg_jonchkiVersion.
-strCfg_jonchkiInstallationFolder = os.path.join(
-    strCfg_projectFolder,
-    'build'
-)
-
-# Select the verbose level for jonchki.
-# Possible values are "debug", "info", "warning", "error" and "fatal".
-strCfg_jonchkiVerbose = 'info'
-
-strCfg_jonchkiSystemConfiguration = os.path.join(
-    strCfg_projectFolder,
-    'jonchki',
-    'jonchkisys.cfg'
-)
-strCfg_jonchkiProjectConfiguration = os.path.join(
-    strCfg_projectFolder,
-    'jonchki',
-    'jonchkicfg.xml'
-)
-
 # -
 # --------------------------------------------------------------------------
 
@@ -73,7 +37,6 @@ print(tPlatform)
 
 astrCMAKE_COMPILER = None
 astrCMAKE_PLATFORM = None
-astrJONCHKI_SYSTEM = None
 strMake = None
 astrEnv = None
 
@@ -92,7 +55,7 @@ if tPlatform['host_distribution_id'] == 'ubuntu':
             strMake = 'make'
 
         elif tPlatform['cpu_architecture'] == 'armhf':
-            # Build on linux for raspberry.
+            # Build on linux for ARMHF.
 
             astrCMAKE_COMPILER = [
                 '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_armhf.cmake' % strCfg_projectFolder
@@ -105,7 +68,7 @@ if tPlatform['host_distribution_id'] == 'ubuntu':
             strMake = 'make'
 
         elif tPlatform['cpu_architecture'] == 'arm64':
-            # Build on linux for raspberry.
+            # Build on linux for ARM64.
 
             astrCMAKE_COMPILER = [
                 '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_arm64.cmake' % strCfg_projectFolder
