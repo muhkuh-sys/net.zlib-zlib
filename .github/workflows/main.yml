@@ -32,7 +32,7 @@ jobs:
         - # Ubuntu 24.04 x86_64
           image: ghcr.io/muhkuh-sys/mbs_ubuntu_2404_x86_64:latest
           distribution-id: ubuntu
-          distribution-version: "24.04"
+          distribution-version: "22.04"
           cpu-architecture: x86_64
     steps:
     - name: Set up QEMU
