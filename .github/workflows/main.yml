@@ -43,8 +43,6 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         docker run --rm \
-          -v "${PWD}:/workspace" \
-          -w /workspace \
           ${{ matrix.platform.image }} \
     - name: check dir
       run: ls
