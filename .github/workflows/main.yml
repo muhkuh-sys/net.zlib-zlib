@@ -43,11 +43,13 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         docker run --rm \
+          -v "${PWD}:/workspace" \
+          -w /workspace \
           ${{ matrix.platform.image }} \
-    - name: check dir
-      run: ls
-    - name: Build
-      run: ./build_artifact.py ${{ matrix.platform.distribution-id }} ${{ matrix.platform.distribution-version }} ${{ matrix.platform.cpu-architecture }}
+          ./build_artifact.py \
+            ${{ matrix.platform.distribution-id }} \
+            ${{ matrix.platform.distribution-version }} \
+            ${{ matrix.platform.cpu-architecture }}
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
