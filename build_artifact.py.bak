@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/python2.7
 
 from jonchki import cli_args
 from jonchki import install
@@ -11,7 +11,7 @@ import subprocess
 
 
 tPlatform = cli_args.parse()
-print(('Building for %s' % tPlatform['platform_id']))
+print('Building for %s' % tPlatform['platform_id'])
 
 
 # --------------------------------------------------------------------------
@@ -153,7 +153,7 @@ for strPath in astrFolders:
 strProjectVersionVcs, strProjectVersionVcsLong = vcs_id.get(
     strCfg_projectFolder
 )
-print((strProjectVersionVcs, strProjectVersionVcsLong))
+print(strProjectVersionVcs, strProjectVersionVcsLong)
 
 
 # ---------------------------------------------------------------------------
