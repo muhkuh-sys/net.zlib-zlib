@@ -30,8 +30,6 @@ jobs:
           distribution-version: "22.04"
           cpu-architecture: riscv64
     steps:
-    - name: Show build host info
-      run: cat /etc/os-release
     - name: Set up QEMU
       if: runner.os == 'Linux'
       uses: docker/setup-qemu-action@v3
@@ -48,8 +46,10 @@ jobs:
           -v "${PWD}:/workspace" \
           -w /workspace \
           ${{ matrix.platform.image }} \
-    - name: Build
-      run: ./build_artifact.py ${{ matrix.platform.distribution-id }} ${{ matrix.platform.distribution-version }} ${{ matrix.platform.cpu-architecture }}
+          ./build_artifact.py \
+            ${{ matrix.platform.distribution-id }} \
+            ${{ matrix.platform.distribution-version }} \
+            ${{ matrix.platform.cpu-architecture }}
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
