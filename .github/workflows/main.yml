@@ -51,7 +51,14 @@ jobs:
           -v "${PWD}:/workspace" \
           -w /workspace \
           ${{ matrix.platform.image }} \
-          ./build_artifact.py \
+    - name: Validate build_artifact.py presence
+      run: |
+        if [ ! -f "./build_artifact.py" ]; then
+        echo "Error: build_artifact.py not found in the repository root."
+        exit 1
+        fi
+    - name: Build 
+      run: ./build_artifact.py \
             ${{ matrix.platform.distribution-id }} \
             ${{ matrix.platform.distribution-version }} \
             ${{ matrix.platform.cpu-architecture }}
