@@ -34,7 +34,6 @@ def install_foreign_debs(astrDeb, strCfg_workingFolder, strCfg_projectFolder):
     packagesPath = os.path.join(strCfg_workingFolder, 'packages')
     os.chdir(packagesPath)
     subProcessPath = os.path.join(strCfg_projectFolder, 'cmake', 'tools')
-    subProcessCall = '%s/get_dependencies.sh %s' % (subProcessPath,
-                                                    ' '.join(astrDeb))
+    subProcessCall = '%s/get_dependencies.sh %s' % (subProcessPath,' '.join(astrDeb))
     subprocess.check_call(subProcessCall, shell=True)
     os.chdir(strCfg_workingFolder)
