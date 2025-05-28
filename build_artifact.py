@@ -1,9 +1,8 @@
-#! /usr/bin/python2.7
+#! /usr/bin/python3
 
 from jonchki import cli_args
 from jonchki import install
 from jonchki import jonchkihere
-from jonchki import vcs_id
 
 import glob
 import os
@@ -54,81 +53,6 @@ if tPlatform['host_distribution_id'] == 'ubuntu':
             astrCMAKE_PLATFORM = []
             strMake = 'make'
 
-        elif tPlatform['cpu_architecture'] == 'armhf':
-            # Build on linux for ARMHF.
-
-            astrCMAKE_COMPILER = [
-                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_armhf.cmake' % strCfg_projectFolder
-            ]
-            astrCMAKE_PLATFORM = [
-                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
-                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
-                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
-            ]
-            strMake = 'make'
-
-        elif tPlatform['cpu_architecture'] == 'arm64':
-            # Build on linux for ARM64.
-
-            astrCMAKE_COMPILER = [
-                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_arm64.cmake' % strCfg_projectFolder
-            ]
-            astrCMAKE_PLATFORM = [
-                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
-                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
-                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
-            ]
-            strMake = 'make'
-
-        elif tPlatform['cpu_architecture'] == 'riscv64':
-            # Build on linux for riscv64.
-
-            astrCMAKE_COMPILER = [
-                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_riscv64.cmake' % strCfg_projectFolder
-            ]
-            astrCMAKE_PLATFORM = [
-                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
-                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
-                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
-            ]
-
-            astrJONCHKI_SYSTEM = [
-                '--distribution-id %s' % tPlatform['distribution_id'],
-                '--distribution-version %s' % tPlatform['distribution_version'],
-                '--cpu-architecture %s' % tPlatform['cpu_architecture']
-            ]
-            strMake = 'make'
-
-        else:
-            raise Exception('Unknown CPU architecture: "%s"' % tPlatform['cpu_architecture'])
-
-    elif tPlatform['distribution_id'] == 'windows':
-        # Cross build on linux for windows.
-
-        if tPlatform['cpu_architecture'] == 'x86':
-            # Build for 32bit windows.
-            astrCMAKE_COMPILER = [
-                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_windows_32.cmake' % strCfg_projectFolder
-            ]
-            astrCMAKE_PLATFORM = [
-                '-DJONCHKI_PLATFORM_DIST_ID=windows',
-                '-DJONCHKI_PLATFORM_DIST_VERSION=""',
-                '-DJONCHKI_PLATFORM_CPU_ARCH=x86'
-            ]
-            strMake = 'make'
-
-        elif tPlatform['cpu_architecture'] == 'x86_64':
-            # Build for 64bit windows.
-            astrCMAKE_COMPILER = [
-                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_windows_64.cmake' % strCfg_projectFolder
-            ]
-            astrCMAKE_PLATFORM = [
-                '-DJONCHKI_PLATFORM_DIST_ID=windows',
-                '-DJONCHKI_PLATFORM_DIST_VERSION=""',
-                '-DJONCHKI_PLATFORM_CPU_ARCH=x86_64'
-            ]
-            strMake = 'make'
-
         else:
             raise Exception('Unknown CPU architecture: "%s"' % tPlatform['cpu_architecture'])
 
@@ -148,12 +72,6 @@ astrFolders = [
 for strPath in astrFolders:
     if os.path.exists(strPath) is not True:
         os.makedirs(strPath)
-
-# Try to get the VCS ID.
-strProjectVersionVcs, strProjectVersionVcsLong = vcs_id.get(
-    strCfg_projectFolder
-)
-print(strProjectVersionVcs, strProjectVersionVcsLong)
 
 
 # ---------------------------------------------------------------------------
