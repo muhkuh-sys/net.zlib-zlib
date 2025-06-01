@@ -50,6 +50,8 @@ jobs:
       uses: docker/setup-qemu-action@v3
       with:
         platforms: linux/arm64, linux/riscv64
+    - name: check architectur
+      run: lsb_release -a
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
