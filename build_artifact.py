@@ -2,9 +2,7 @@
 
 from jonchki import cli_args
 from jonchki import install
-from jonchki import jonchkihere
 
-import glob
 import os
 import subprocess
 
@@ -32,10 +30,9 @@ strCfg_workingFolder = os.path.join(
 # -
 # --------------------------------------------------------------------------
 
-print(tPlatform)
-
 astrCMAKE_COMPILER = None
 astrCMAKE_PLATFORM = None
+astrJONCHKI_SYSTEM = None
 strMake = None
 astrEnv = None
 
@@ -57,6 +54,121 @@ if tPlatform['host_distribution_id'] == 'ubuntu':
             astrCMAKE_COMPILER = []
             astrCMAKE_PLATFORM = []
             astrJONCHKI_SYSTEM = []
+            strMake = 'make'
+
+        elif tPlatform['cpu_architecture'] == 'armhf':
+            # Build on linux for raspberry.
+
+            # Create the folders if they do not exist yet.
+            astrDeb = [
+                'libreadline-dev:armhf'
+            ]
+            install.install_foreign_debs(astrDeb, strCfg_workingFolder, strCfg_projectFolder)
+
+            astrCMAKE_COMPILER = [
+                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_armhf.cmake' % strCfg_projectFolder
+            ]
+            astrCMAKE_PLATFORM = [
+                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
+                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
+                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
+            ]
+
+            astrJONCHKI_SYSTEM = [
+                '--distribution-id %s' % tPlatform['distribution_id'],
+                '--distribution-version %s' % tPlatform['distribution_version'],
+                '--cpu-architecture %s' % tPlatform['cpu_architecture']
+            ]
+            strMake = 'make'
+
+        elif tPlatform['cpu_architecture'] == 'arm64':
+            # Build on linux for raspberry.
+
+            # Create the folders if they do not exist yet.
+            astrDeb = [
+                'libreadline-dev:arm64'
+            ]
+            install.install_foreign_debs(astrDeb, strCfg_workingFolder, strCfg_projectFolder)
+
+            astrCMAKE_COMPILER = [
+                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_arm64.cmake' % strCfg_projectFolder
+            ]
+            astrCMAKE_PLATFORM = [
+                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
+                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
+                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
+            ]
+
+            astrJONCHKI_SYSTEM = [
+                '--distribution-id %s' % tPlatform['distribution_id'],
+                '--distribution-version %s' % tPlatform['distribution_version'],
+                '--cpu-architecture %s' % tPlatform['cpu_architecture']
+            ]
+            strMake = 'make'
+
+        elif tPlatform['cpu_architecture'] == 'riscv64':
+            # Build on linux for riscv64.
+
+            # Create the folders if they do not exist yet.
+            astrDeb = [
+                'libreadline-dev:riscv64'
+            ]
+            install.install_foreign_debs(astrDeb, strCfg_workingFolder, strCfg_projectFolder)
+
+            astrCMAKE_COMPILER = [
+                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_ubuntu_riscv64.cmake' % strCfg_projectFolder
+            ]
+            astrCMAKE_PLATFORM = [
+                '-DJONCHKI_PLATFORM_DIST_ID=%s' % tPlatform['distribution_id'],
+                '-DJONCHKI_PLATFORM_DIST_VERSION=%s' % tPlatform['distribution_version'],
+                '-DJONCHKI_PLATFORM_CPU_ARCH=%s' % tPlatform['cpu_architecture']
+            ]
+
+            astrJONCHKI_SYSTEM = [
+                '--distribution-id %s' % tPlatform['distribution_id'],
+                '--distribution-version %s' % tPlatform['distribution_version'],
+                '--cpu-architecture %s' % tPlatform['cpu_architecture']
+            ]
+            strMake = 'make'
+
+        else:
+            raise Exception('Unknown CPU architecture: "%s"' % tPlatform['cpu_architecture'])
+
+    elif tPlatform['distribution_id'] == 'windows':
+        # Cross build on linux for windows.
+
+        if tPlatform['cpu_architecture'] == 'x86':
+            # Build for 32bit windows.
+            astrCMAKE_COMPILER = [
+                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_windows_32.cmake' % strCfg_projectFolder
+            ]
+            astrCMAKE_PLATFORM = [
+                '-DJONCHKI_PLATFORM_DIST_ID=windows',
+                '-DJONCHKI_PLATFORM_DIST_VERSION=""',
+                '-DJONCHKI_PLATFORM_CPU_ARCH=x86'
+            ]
+            astrJONCHKI_SYSTEM = [
+                '--distribution-id windows',
+                '--empty-distribution-version',
+                '--cpu-architecture x86'
+            ]
+            strMake = 'make'
+
+        elif tPlatform['cpu_architecture'] == 'x86_64':
+            # Build for 64bit windows.
+            astrCMAKE_COMPILER = [
+                '-DCMAKE_TOOLCHAIN_FILE=%s/cmake/toolchainfiles/toolchain_windows_64.cmake' % strCfg_projectFolder
+            ]
+            astrCMAKE_PLATFORM = [
+                '-DJONCHKI_PLATFORM_DIST_ID=windows',
+                '-DJONCHKI_PLATFORM_DIST_VERSION=""',
+                '-DJONCHKI_PLATFORM_CPU_ARCH=x86_64'
+            ]
+            astrJONCHKI_SYSTEM = [
+                '--distribution-id windows',
+                '--empty-distribution-version',
+                '--cpu-architecture x86_64'
+            ]
             strMake = 'make'
 
         else:
